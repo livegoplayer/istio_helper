@@ -879,7 +879,7 @@ apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: kiali-imroc-io-tls
-  namespace: istio-system
+  namespace: kiali-system
 spec:
   secretName: kiali-imroc-io-tls
   issuerRef:
@@ -917,7 +917,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name:  kiali-gw
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     app: kiali
     io.kompose.service: kiali
@@ -945,7 +945,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: kiali-vs
-  namespace: istio-system
+  namespace: kiali-system
 spec:
   hosts:
     - "*"
