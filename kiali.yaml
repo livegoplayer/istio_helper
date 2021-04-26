@@ -262,7 +262,7 @@ spec:
 # Determines if the Kiali endpoint should be exposed externally.
 # If true, an Ingress will be created if on Kubernetes or a Route if on OpenShift.
 #    ---
-#    ingress_enabled: true
+    ingress_enabled: false
 #
 # Determines the logger configuration.
 # log_format supports text and json.
@@ -280,7 +280,7 @@ spec:
 # The namespace into which Kiali is to be installed. If this is empty or not defined,
 # the default will be the namespace where the Kiali CR is located.
 #    ---
-    namespace: "kiali-system"
+#    namespace: "kiali-system"
 #
 # A set of node labels that dictate onto which node the Kiali pod will be deployed.
 #    ---
