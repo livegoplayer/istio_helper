@@ -922,7 +922,7 @@ spec:
         - kiali.k8s.show
       tls:
         mode: SIMPLE # enables HTTPS on this port
-        credentialName: bookinfo-secret # fetches certs from Kubernetes secret
+        credentialName: kiali-imroc-io-tls # fetches certs from Kubernetes secret
       port:
         number: 20001
         name: kiali-dashboard
