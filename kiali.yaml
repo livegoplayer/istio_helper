@@ -880,27 +880,69 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - kiali.k8s.show
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: kiali-ingress
+#  namespace: istio-system
+#  annotations:
+#    kubernetes.io/ingress.class: "nginx"
+#spec:
+#  rules:
+#    - host: kiali.k8s.show
+#      http:
+#        paths:
+#          - backend:
+#              service:
+#                name: kiali
+#                port:
+#                  number: 20001
+#            path: /kiali
+#            pathType: Prefix
+#  tls:
+#    - secretName: kiali-imroc-io-tls
+#      hosts:
+#        - kiali.k8s.show
+
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  name: kiali-ingress
-  namespace: istio-system
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
+  name:  kiali-gw
+  namespace: kiali
+  labels:
+    app: kiali
+    io.kompose.service: kiali
 spec:
-  rules:
-    - host: kiali.k8s.show
-      http:
-        paths:
-          - backend:
-              service:
-                name: kiali
-                port:
-                  number: 20001
-            path: /kiali
-            pathType: Prefix
-  tls:
-    - secretName: kiali-imroc-io-tls
-      hosts:
+  selector:
+    app: kiali
+  servers:
+    - hosts:
         - kiali.k8s.show
+      tls:
+        mode: SIMPLE # enables HTTPS on this port
+        credentialName: bookinfo-secret # fetches certs from Kubernetes secret
+      port:
+        number: 20001
+        name: kiali-dashboard
+        protocol: HTTPS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-vs
+spec:
+  hosts:
+    - kiali.k8s.show
+  gateways:
+    - kiali-gw
+  http:
+    - match:
+      - uri:
+        prefix: "/kiali"
+    - route:
+      - destination:
+          host: kiali.k8s.show
+          port:
+            number: 20001
