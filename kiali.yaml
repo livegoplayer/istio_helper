@@ -928,7 +928,7 @@ spec:
         name: kiali-dashboard-https
         protocol: HTTPS
     - hosts:
-        - - "*"
+        - "*"
       port:
         number: 80
         name: kiali-dashboard-http
