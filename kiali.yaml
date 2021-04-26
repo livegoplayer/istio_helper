@@ -916,7 +916,7 @@ metadata:
     io.kompose.service: kiali
 spec:
   selector:
-    istio: ingress-gateway
+    app: kiali
   servers:
     - hosts:
         - kiali.k8s.show
