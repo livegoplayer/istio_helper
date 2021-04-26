@@ -950,7 +950,7 @@ spec:
     - match:
       - uri:
           prefix: "/kiali"
-    - route:
+      route:
       - destination:
           host: kiali.k8s.show
           port:
