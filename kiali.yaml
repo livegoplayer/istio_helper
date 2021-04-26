@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiali-system
+  labels:
+    istio-injection: enabled
+---
 apiVersion: kiali.io/v1alpha1
 kind: Kiali
 metadata:
@@ -280,7 +287,7 @@ spec:
 # The namespace into which Kiali is to be installed. If this is empty or not defined,
 # the default will be the namespace where the Kiali CR is located.
 #    ---
-    namespace: "istio-system"
+    namespace: "kiali-system"
 #
 # A set of node labels that dictate onto which node the Kiali pod will be deployed.
 #    ---
