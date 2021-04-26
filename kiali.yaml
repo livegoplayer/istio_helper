@@ -927,6 +927,14 @@ spec:
         number: 20001
         name: kiali-dashboard
         protocol: HTTPS
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - kiali.k8s.show
+      tls:
+        httpsRedirect: true # sends 301 redirect for http requests
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
