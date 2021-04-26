@@ -894,8 +894,9 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: kiali
-              servicePort: 20001
+              service:
+                name: kiali
+                port: 20001
             path: /kiali
             pathType: Prefix
   tls:
