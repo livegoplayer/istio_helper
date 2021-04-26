@@ -946,7 +946,7 @@ spec:
     - kiali-gw
   http:
     - match:
-        uri:
+      - uri:
           prefix: "/kiali"
       route:
       - destination:
