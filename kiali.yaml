@@ -948,6 +948,7 @@ spec:
     - kiali-gw
   http:
     - match:
+      - port: 443
       - uri:
           prefix: "/kiali"
       route:
