@@ -916,7 +916,7 @@ metadata:
     io.kompose.service: kiali
 spec:
   selector:
-    app: kiali
+    istio: ingress-gateway
   servers:
     - hosts:
         - kiali.k8s.show
@@ -953,3 +953,4 @@ spec:
           host: kiali.k8s.show
           port:
             number: 20001
+
