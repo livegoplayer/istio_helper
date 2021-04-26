@@ -925,11 +925,11 @@ spec:
         credentialName: kiali-imroc-io-tls # fetches certs from Kubernetes secret
       port:
         number: 20001
-        name: kiali-dashboard
+        name: kiali-dashboard-https
         protocol: HTTPS
     - port:
-        number: 80
-        name: http
+        number: 20001
+        name:  kiali-dashboard-http
         protocol: HTTP
       hosts:
         - kiali.k8s.show
