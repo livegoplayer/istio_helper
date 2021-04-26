@@ -313,21 +313,21 @@ spec:
 #    ---
     override_ingress_yaml:
       metadata:
-       annotations:
-         nginx.ingress.kubernetes.io/secure-backends: "true"
-         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-       spec:
-         rules:
-           - host: "kiaki.k8s.show"
-             http:
-               paths:
-                 - pathType: Prefix
-                   path: "/kiali"
-                   backend:
-                     service:
-                       name: kiali
-                       port:
-                         number: 20001
+        annotations:
+          nginx.ingress.kubernetes.io/secure-backends: "true"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        spec:
+          rules:
+            - host: "kiaki.k8s.show"
+              http:
+                paths:
+                  - pathType: Prefix
+                    path: "/kiali"
+                    backend:
+                      service:
+                        name: kiali
+                        port:
+                          number: 20001
 #
 # Custom annotations to be created on the Kiali pod.
 #    ---
