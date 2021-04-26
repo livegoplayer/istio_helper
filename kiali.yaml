@@ -897,6 +897,7 @@ spec:
               serviceName: kiali
               servicePort: 20001
             path: /kiali
+            pathType: Prefix
   tls:
     - secretName: kiali-imroc-io-tls
       hosts:
