@@ -809,7 +809,7 @@ spec:
 #
 # Where the Kiali server is bound. The console and API server are accessible on this host.
 #    ---
-    address: "localhost.kvm-1
+    address: "localhost.kvm-1"
 #
 # When true, allows additional audit logging on write operations.
 #    ---
