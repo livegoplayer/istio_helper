@@ -924,9 +924,15 @@ spec:
         mode: SIMPLE # enables HTTPS on this port
         credentialName: kiali-imroc-io-tls # fetches certs from Kubernetes secret
       port:
-        number: 20001
+        number: 443
         name: kiali-dashboard-https
         protocol: HTTPS
+    - hosts:
+        - kiali.k8s.show
+      port:
+        number: 80
+        name: kiali-dashboard-http
+        protocol: HTTP
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -939,10 +945,9 @@ spec:
   gateways:
     - kiali-gw
   http:
-#    - match:
-#      - port: 443
-#        uri:
-#          prefix: "/kiali"
+    - match:
+        uri:
+          prefix: "/kiali"
       route:
       - destination:
           host: kiali.k8s.show
