@@ -867,3 +867,37 @@ spec:
 # cross-linking between Kiali instances in a multi-cluster setup.
 #    ---
     web_schema: "https"
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: kiali-imroc-io-tls
+  namespace: istio-system
+spec:
+  secretName: kiali-imroc-io-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - kiali.k8s.show
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kiali-ingress
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: kiali.k8s.show
+      http:
+        paths:
+          - backend:
+              serviceName: kiali
+              servicePort: 20001
+            path: /kiali
+  tls:
+    - secretName: kiali-imroc-io-tls
+      hosts:
+        - kiali.k8s.show
