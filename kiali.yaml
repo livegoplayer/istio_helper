@@ -939,10 +939,10 @@ spec:
   gateways:
     - kiali-gw
   http:
-    - match:
-      - port: 443
-        uri:
-          prefix: "/kiali"
+#    - match:
+#      - port: 443
+#        uri:
+#          prefix: "/kiali"
       route:
       - destination:
           host: kiali.k8s.show
