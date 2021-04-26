@@ -797,11 +797,11 @@ spec:
 
 ##########
 #  ---
-  server:
+#  server:
 #
 # Where the Kiali server is bound. The console and API server are accessible on this host.
 #    ---
-    address: "localhost.kvm-1"
+#    address: "localhost.kvm-1"
 #
 # When true, allows additional audit logging on write operations.
 #    ---
@@ -837,7 +837,7 @@ spec:
 # On non-OpenShift clusters, you must populate this value if you want to enable
 # cross-linking between Kiali instances in a multi-cluster setup.
 #    ---
-    web_fqdn: "kiali.k8s.show"
+#    web_fqdn: "kiali.k8s.show"
 #
 # Define the history mode of kiali UI. This can only take
 # two possible values: either "browser" or "hash".
@@ -851,7 +851,7 @@ spec:
 #
 # When empty, Kiali will try to guess this value from HTTP headers.
 #    ---
-    web_port: "443"
+#    web_port: "443"
 #
 # Defines the context root path for the Kiali console and API endpoints and readiness probes.
 # When providing a context root path that is not "/", do not add a trailing slash.
@@ -866,7 +866,7 @@ spec:
 # On non-OpenShift clusters, you must populate this value if you want to enable
 # cross-linking between Kiali instances in a multi-cluster setup.
 #    ---
-    web_schema: "https"
+#    web_schema: "https"
 ---
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
@@ -881,7 +881,7 @@ spec:
   dnsNames:
     - kiali.k8s.show
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: kiali-ingress
