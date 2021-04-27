@@ -1,3 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiali-system
+  labels:
+    istio-injection: enabled
 ---
 # Source: crds/crds.yaml
 ---
@@ -5,6 +11,7 @@ apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   name: monitoringdashboards.monitoring.kiali.io
+  namespace: kiali-system
 spec:
   group: monitoring.kiali.io
   names:
@@ -25,7 +32,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kiali
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -42,7 +49,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kiali
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -131,6 +138,7 @@ metadata:
     app.kubernetes.io/version: "v1.29.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: "kiali"
+  namespace: kiali-system
 rules:
 - apiGroups: [""]
   resources:
@@ -226,6 +234,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: kiali
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -341,6 +350,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: kiali
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -365,7 +375,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: kiali-controlplane
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -388,7 +398,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: kiali-controlplane
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -413,7 +423,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kiali
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -444,7 +454,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kiali
-  namespace: istio-system
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -611,6 +621,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: go
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -683,6 +694,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: kiali
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -732,6 +744,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: micrometer-1.0.6-jvm-pool
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -780,6 +793,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: micrometer-1.0.6-jvm
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -850,6 +864,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: micrometer-1.1-jvm
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -923,6 +938,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: microprofile-1.1
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -987,6 +1003,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: microprofile-x.y
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1030,6 +1047,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: nodejs
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1094,6 +1112,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: quarkus
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1132,6 +1151,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: springboot-jvm-pool
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1153,6 +1173,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: springboot-jvm
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1174,6 +1195,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: springboot-tomcat
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1195,6 +1217,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: thorntail
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1222,6 +1245,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: tomcat
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1294,6 +1318,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: vertx-client
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1359,6 +1384,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: vertx-eventbus
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1423,6 +1449,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: vertx-jvm
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1444,6 +1471,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: vertx-pool
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1517,6 +1545,7 @@ apiVersion: "monitoring.kiali.io/v1alpha1"
 kind: MonitoringDashboard
 metadata:
   name: vertx-server
+  namespace: kiali-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1578,3 +1607,51 @@ spec:
       metricName: "vertx_http_server_bytesReceived"
       dataType: "histogram"
 ...
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name:  kiali-gw
+  namespace: kiali-system
+  labels:
+    app: kiali
+    io.kompose.service: kiali
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - hosts:
+        - "kiali.k8s.show"
+      tls:
+        mode: SIMPLE # enables HTTPS on this port
+        credentialName: kiali-imroc-io-tls # fetches certs from Kubernetes secret
+      port:
+        number: 443
+        name: kiali-dashboard-https
+        protocol: HTTPS
+    - hosts:
+        - "kiali.k8s.show"
+      port:
+        number: 80
+        name: kiali-dashboard-http
+        protocol: HTTP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: kiali-system
+spec:
+  hosts:
+    - "kiali.k8s.show"
+  gateways:
+    - kiali-gw
+  http:
+    - match:
+        - uri:
+            prefix: "/kiali"
+      route:
+        - destination:
+            host: "kiali.kiali-system.svc.cluster.local"
+            port:
+              number: 20001

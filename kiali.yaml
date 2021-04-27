@@ -70,7 +70,7 @@ spec:
 # Note that if you install some Istio components in other namespaces, specify
 # that component's namespace in istio_component_namespaces.
 #  ---
-  istio_namespace: "istio-system"
+#  istio_namespace: "istio-system"
 
 ##########
 # The version of the Ansible playbook to execute in order to install that version of Kiali.
@@ -417,7 +417,7 @@ spec:
 
 ##########
 #  ---
-  external_services:
+#  external_services:
 #
 # Note about sensitive values in the external_services "auth" sections:
 # Some external services configured below support an "auth" sub-section in order to tell Kiali how it should
@@ -586,22 +586,22 @@ spec:
 # url: The URL used to query the Prometheus Server. This URL must be accessible from the Kiali pod.
 #      If empty, assumes it is in the istio namespace at the URL "http://prometheus.<istio_namespace>:9090"
 #    ---
-    prometheus:
-      auth:
-        ca_file: ""
-        insecure_skip_verify: false
-        password: ""
-        token: ""
-        type: "none"
-        use_kiali_token: false
-        username: ""
-      cache_duration: 10
-      cache_enabled: true
-      cache_expiration: 300
-      health_check_url: ""
-      is_core: true
-      url: "https://10.0.0.7:9090"
-#
+#    prometheus:
+#      auth:
+#        ca_file: ""
+#        insecure_skip_verify: false
+#        password: ""
+#        token: ""
+#        type: "none"
+#        use_kiali_token: false
+#        username: ""
+#      cache_duration: 10
+#      cache_enabled: true
+#      cache_expiration: 300
+#      health_check_url: ""
+#      is_core: true
+#      url: "https://10.0.0.7:9090"
+##
 # **Tracing-specific settings:
 #  - Right now we only support Jaeger
 # auth: authentication settings to connect to Jaeger:
