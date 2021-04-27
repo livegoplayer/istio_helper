@@ -1,9 +1,3 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: kiali-system
-  labels:
-    istio-injection: enabled
 ---
 # Source: crds/crds.yaml
 ---
@@ -31,7 +25,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kiali
-  namespace: kiali-system
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -48,7 +42,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kiali
-  namespace: kiali-system
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -91,7 +85,7 @@ data:
         log_level: info
         sampler_rate: "1"
         time_field_format: 2006-01-02T15:04:05Z07:00
-      namespace: kiali-system
+      namespace: istio-system
       node_selector: {}
       override_ingress_yaml:
         metadata: {}
@@ -363,7 +357,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: kiali
-    namespace: kiali-system
+    namespace: istio-system
 ...
 ---
 # Source: kiali-server/templates/role-controlplane.yaml
@@ -371,7 +365,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: kiali-controlplane
-  namespace: kiali-system
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -394,7 +388,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: kiali-controlplane
-  namespace: kiali-system
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -411,7 +405,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: kiali
-    namespace: kiali-system
+    namespace: istio-system
 ...
 ---
 # Source: kiali-server/templates/service.yaml
@@ -419,7 +413,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kiali
-  namespace: kiali-system
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -450,7 +444,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kiali
-  namespace: kiali-system
+  namespace: istio-system
   labels:
     helm.sh/chart: kiali-server-1.29.0
     app: kiali
@@ -1584,64 +1578,3 @@ spec:
         metricName: "vertx_http_server_bytesReceived"
         dataType: "histogram"
 ...
----
-apiVersion: cert-manager.io/v1alpha2
-kind: Certificate
-metadata:
-  name: kiali-imroc-io-tls
-  namespace: kiali-system
-spec:
-  secretName: kiali-imroc-io-tls
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  dnsNames:
-    - kiali.k8s.show
----
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name:  kiali-gw
-  namespace: kiali-system
-  labels:
-    app: kiali
-    io.kompose.service: kiali
-spec:
-  selector:
-    istio: ingressgateway # use istio default controller
-  servers:
-    - hosts:
-        - "kiali.k8s.show"
-      tls:
-        mode: SIMPLE # enables HTTPS on this port
-        credentialName: kiali-imroc-io-tls # fetches certs from Kubernetes secret
-      port:
-        number: 443
-        name: kiali-dashboard-https
-        protocol: HTTPS
-    - hosts:
-        - "kiali.k8s.show"
-      port:
-        number: 80
-        name: kiali-dashboard-http
-        protocol: HTTP
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: kiali-vs
-  namespace: kiali-system
-spec:
-  hosts:
-    - "kiali.k8s.show"
-  gateways:
-    - kiali-gw
-  http:
-    - match:
-        - uri:
-            prefix: "/kiali"
-      route:
-        - destination:
-            host: "kiali.kiali-system.svc.cluster.local"
-            port:
-              number: 20001
