@@ -480,7 +480,7 @@ spec:
 #   use_kiali_token: When true and if auth.type is "bearer", the same OAuth token used for authentication in Kiali will be used for the API calls to Grafana,
 #       and auth.token config is ignored then.
 #   username: Username to be used when making requests to Grafana, for basic authentication. User only requires viewer permissions.
-# dashboards: A list of Grafana dashboards that Kiali can link to. Each item contains:
+#  dashboards:
 #   name: The name of the dashboard in Grafana
 #   variables:
 #     app: The name of a variable that holds the app name, if used in that dashboard (else it must be omitted)
