@@ -215,7 +215,7 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: istio-grafana-dashboards
-  namespace: grafana-system
+  namespace: istio-system
 
 ---
 
@@ -1095,13 +1095,13 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: istio-services-grafana-dashboards
-  namespace: grafana-system
+  namespace: istio-system
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name:  grafana-gw
-  namespace: grafana-system
+  namespace: istio-system
   labels:
     app: grafana
     io.kompose.service: grafana
@@ -1129,7 +1129,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: grafana-vs
-  namespace: grafana-system
+  namespace: istio-system
 spec:
   hosts:
     - "grafana.k8s.show"
@@ -1139,6 +1139,6 @@ spec:
     - match: null
       route:
         - destination:
-            host: "grafana.grafana-system.svc.cluster.local"
+            host: "grafana.istio-system.svc.cluster.local"
             port:
               number: 3000
