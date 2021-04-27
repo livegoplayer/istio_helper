@@ -124,7 +124,7 @@ data:
         cache_expiration: 300
         health_check_url: ""
         is_core: false
-        url: "https://10.0.0.7:9090"
+        url: "http://10.0.0.7:9090"
     identity:
       cert_file: ""
       private_key_file: ""
