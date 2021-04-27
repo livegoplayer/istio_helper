@@ -387,7 +387,7 @@ spec:
     app: prometheus
     release: prometheus
   sessionAffinity: None
-  type: "ClusterIP"
+  type: "NodePort"
 ---
 # Source: prometheus/templates/server/deploy.yaml
 apiVersion: apps/v1
