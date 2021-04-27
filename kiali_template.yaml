@@ -388,6 +388,8 @@ metadata:
 rules:
 - apiGroups: [""]
   resources:
+  - namespaces
+  - deployments
   - secrets
   verbs:
   - list
