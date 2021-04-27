@@ -497,8 +497,7 @@ spec:
     istio: ingressgateway
   servers:
     - hosts:
-        - "prometheus.k8s.show"
-        - "prometheus.istio-system"
+        - "*"
       port:
         number: 9090
         name: prometheus-dashboard-http
@@ -511,8 +510,7 @@ metadata:
   namespace: prometheus-system
 spec:
   hosts:
-    - "prometheus.k8s.show"
-    - "prometheus.istio-system"
+    - "*"
   gateways:
     - prometheus-gw
   http:
