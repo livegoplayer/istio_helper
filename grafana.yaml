@@ -55,7 +55,7 @@ data:
       name: Prometheus
       orgId: 1
       type: prometheus
-      url: http://prometheus.k8s.show
+      url: http://prometheus.k8s.show:32020
   dashboardproviders.yaml: |
     apiVersion: 1
     providers:
