@@ -500,6 +500,7 @@ spec:
         - "prometheus.k8s.show"
         - "prometheus"
         - "localhost"
+        - "prometheus.istio-system"
       port:
         number: 9090
         name: prometheus-dashboard-http
@@ -515,6 +516,7 @@ spec:
     - "prometheus.k8s.show"
     - "prometheus"
     - "localhost"
+    - "prometheus.istio-system"
   gateways:
     - prometheus-gw
   http:
