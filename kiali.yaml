@@ -1601,14 +1601,23 @@ spec:
 ...
 ---
 apiVersion: cert-manager.io/v1
-kind: Certificate
+kind: Issuer
 metadata:
-  name: kiali-imroc-io-tls
+  name: kiali-issuer
   namespace: kiali-system
 spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kiali-imroc-io-tls #
+  namespace: kiali-system
+spec:
+  # Secret names are always required.
   secretName: kiali-imroc-io-tls
-  duration: 2160h
-  renewBefore: 360h
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
   subject:
     organizations:
       - Example Inc.
@@ -1620,8 +1629,8 @@ spec:
   dnsNames:
     - kiali.k8s.show
   issuerRef:
-    name: ca-issuer
-    kind: ClusterIssuer
+    name: kiali-issuer # 指定为自签名发行人
+    kind: Issuer
     group: cert-manager.io
 ---
 apiVersion: networking.istio.io/v1alpha3
