@@ -1600,19 +1600,6 @@ spec:
         dataType: "histogram"
 ...
 ---
-#apiVersion: cert-manager.io/v1alpha2
-#kind: Certificate
-#metadata:
-#  name: kiali-imroc-io-tls
-#  namespace: kiali-system
-#spec:
-#  secretName: kiali-imroc-io-tls
-#  issuerRef:
-#    name: letsencrypt-prod
-#    kind: ClusterIssuer
-#  dnsNames:
-#    - kiali.k8s.show
-#---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -1625,7 +1612,6 @@ spec:
   subject:
     organizations:
       - Example Inc.
-  commonName: kiali.k8s.show
   isCA: false
   privateKey:
     algorithm: RSA
