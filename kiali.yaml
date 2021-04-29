@@ -1600,38 +1600,18 @@ spec:
         dataType: "histogram"
 ...
 ---
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: kiali-issuer
-  namespace: kiali-system
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
+apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
-  name: kiali-imroc-io-tls #
+  name: kiali-imroc-io-tls
   namespace: kiali-system
 spec:
-  # Secret names are always required.
   secretName: kiali-imroc-io-tls
-  duration: 2160h # 90d
-  renewBefore: 360h # 15d
-  subject:
-    organizations:
-      - Example Inc.
-  isCA: false
-  privateKey:
-    algorithm: RSA
-    encoding: PKCS1
-    size: 2048
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
   dnsNames:
     - kiali.k8s.show
-  issuerRef:
-    name: kiali-issuer # 指定为自签名发行人
-    kind: Issuer
-    group: cert-manager.io
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
